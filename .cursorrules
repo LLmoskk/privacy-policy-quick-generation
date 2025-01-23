@@ -1,0 +1,2 @@
+- 使用 tailwind 编写样式
+- 使用 type 而不是 interface 描述类型

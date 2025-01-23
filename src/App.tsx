@@ -1,62 +1,89 @@
 import { useState } from 'react';
-import logo from './assets/images/logo.svg';
+import banner from '@/assets/images/banner.png';
+import { Form } from './component/Form';
 
 const App = () => {
-  const [count, setCount] = useState(0);
+  const [productName, setProductName] = useState('');
+  const [showForm, setShowForm] = useState(false);
+
+  const handleStartGenerate = () => {
+    if (productName.trim()) {
+      setShowForm(true);
+    }
+  };
+
+  if (showForm) {
+    return <Form productName={productName} />;
+  }
 
   return (
-    <div className="text-center selection:bg-green-900">
-      <header className="flex min-h-screen flex-col items-center justify-center bg-[#282c34] text-white">
-        <img
-          src={logo}
-          className="animate-speed h-60 motion-safe:animate-spin"
-          alt="logo"
-        />
-        <style>
-          {
-            '\
-            .animate-speed{\
-              animation-duration:20s;\
-            }\
-          '
-          }
-        </style>
-        <p className="bg-gradient-to-r from-emerald-300 to-sky-300 bg-clip-text text-5xl font-black text-transparent selection:bg-transparent">
-          Vite + React + Typescript + Tailwindcss
-        </p>
-        <p className="mt-3">
-          <button
-            type="button"
-            className="my-6 rounded bg-gray-300 px-2 py-2 text-[#282C34] transition-all hover:bg-gray-200"
-            onClick={() => setCount((count) => count + 1)}
-          >
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code className="text-[#8d96a7]">App.tsx</code> and save to test
-          HMR updates.
-        </p>
-        <p className="mt-3 flex gap-3 text-center text-[#8d96a7]">
-          <a
-            className="text-[#61dafb] transition-all hover:text-blue-400"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="text-[#61dafb] transition-all hover:text-blue-400"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div className="px-4 py-12 min-h-screen bg-gray-50 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        {/* 顶部区域 */}
+        <div className="flex flex-col gap-8 justify-between items-center mb-16 md:flex-row">
+          <div className="flex-1">
+            <h1 className="mb-4 text-4xl font-bold text-gray-900">
+              App / 网站
+              <br />
+              <span className="text-2xl">
+                所需隐私政策文件 URL{' '}
+                <span className="text-blue-600">免费生成</span>
+              </span>
+            </h1>
+            <div className="mt-8 max-w-xl">
+              <input
+                type="text"
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
+                placeholder="输入您的产品名称"
+                className="px-4 py-3 w-full rounded-lg border border-gray-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button
+                onClick={handleStartGenerate}
+                className="px-6 py-3 mt-4 w-full font-medium text-white bg-blue-600 rounded-lg transition-colors hover:bg-blue-700"
+              >
+                开始生成
+              </button>
+            </div>
+          </div>
+          <div className="flex-1">
+            <img src={banner} alt="banner" className="w-full max-w-lg" />
+          </div>
+        </div>
+
+        {/* 底部特性区域 */}
+        <div className="mt-16">
+          <h2 className="mb-12 text-3xl font-bold text-blue-600">
+            全部覆盖 从创建到部署
+          </h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="p-6 bg-white rounded-lg shadow-sm">
+              <div className="flex justify-center items-center mb-4 w-8 h-8 bg-blue-100 rounded-full">
+                <span className="text-blue-600">✏️</span>
+              </div>
+              <h3 className="mb-2 text-lg font-medium text-gray-900">
+                仅需几次填写与选择
+              </h3>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-sm">
+              <div className="flex justify-center items-center mb-4 w-8 h-8 bg-purple-100 rounded-full">
+                <span className="text-purple-600">⬇️</span>
+              </div>
+              <h3 className="mb-2 text-lg font-medium text-gray-900">
+                一键导出TXT，HTML文件
+              </h3>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-sm">
+              <div className="flex justify-center items-center mb-4 w-8 h-8 bg-blue-100 rounded-full">
+                <span className="text-blue-600">🌐</span>
+              </div>
+              <h3 className="mb-2 text-lg font-medium text-gray-900">
+                直接部署为隐私政策网页
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

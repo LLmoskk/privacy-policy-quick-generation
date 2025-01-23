@@ -1,3 +1,10 @@
+import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import prettierPlugin from 'eslint-plugin-prettier';
+import typescriptPlugin from '@typescript-eslint/eslint-plugin';
+import reactRefreshPlugin from 'eslint-plugin-react-refresh';
+import importPlugin from 'eslint-plugin-import';
+
 export default [
   {
     // Flat config: ignore patterns
@@ -34,26 +41,26 @@ export default [
         jsx: true, // Enable JSX parsing
       },
     },
-    
+
     // Plugins to be used
     plugins: {
-      react: require('eslint-plugin-react'),
-      'react-hooks': require('eslint-plugin-react-hooks'),
-      prettier: require('eslint-plugin-prettier'),
-      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
-      'react-refresh': require('eslint-plugin-react-refresh'),
-      import: require('eslint-plugin-import'),
+      react: reactPlugin,
+      'react-hooks': reactHooksPlugin,
+      prettier: prettierPlugin,
+      '@typescript-eslint': typescriptPlugin,
+      'react-refresh': reactRefreshPlugin,
+      import: importPlugin,
     },
-    
+
     // ESLint rule configurations (extends equivalent in Flat Config)
     rules: {
-      ...require('eslint-plugin-react').configs.recommended.rules,
-      ...require('eslint-plugin-react-hooks').configs.recommended.rules,
-      ...require('@typescript-eslint/eslint-plugin').configs.recommended.rules,
-      ...require('eslint-plugin-prettier').configs.recommended.rules,
+      ...reactPlugin.configs.recommended.rules,
+      ...reactHooksPlugin.configs.recommended.rules,
+      ...typescriptPlugin.configs.recommended.rules,
+      ...prettierPlugin.configs.recommended.rules,
       'prettier/prettier': 'error', // Prettier formatting as an ESLint rule
     },
-    
+
     settings: {
       react: {
         version: 'detect',  // Automatically detect the React version
