@@ -99,7 +99,7 @@ export const Form = ({ productName }: { productName: string }) => {
   return (
     <div className="mx-auto max-w-4xl p-6">
       {/* 步骤指示器 */}
-      <div className="mb-8 ml-[90px] flex items-center justify-between px-6">
+      <div className="mb-8 ml-[100px] flex items-center justify-between px-6">
         {[
           { step: 1, label: '基本配置' },
           { step: 2, label: '附加选项' },
