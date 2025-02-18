@@ -42,7 +42,6 @@ export const Form = ({ productName }: { productName: string }) => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
       productName: productName,
