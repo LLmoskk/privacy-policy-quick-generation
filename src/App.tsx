@@ -27,7 +27,7 @@ const App = () => {
               <br />
               <span className="text-2xl">
                 所需隐私政策文件 URL{' '}
-                <span className="text-blue-600">免费生成</span>
+                <span className="text-blue-600">免费生成！</span>
               </span>
             </h1>
             <div className="mt-8 max-w-xl">

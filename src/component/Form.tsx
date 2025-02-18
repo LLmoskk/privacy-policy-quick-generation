@@ -9,6 +9,8 @@ export type FormData = {
   developerName: string;
   productType: 'App' | 'Website' | 'Other';
   contactInfo: string;
+  // 新增收集信息的总开关
+  collectUserInfo: boolean;
   // 第二步的数据
   collectInfo: {
     phone: boolean;
@@ -43,7 +45,9 @@ export const Form = ({ productName }: { productName: string }) => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
+      productName: productName,
       productType: 'App',
+      collectUserInfo: true,
       collectInfo: {
         phone: false,
         email: false,
@@ -66,6 +70,9 @@ export const Form = ({ productName }: { productName: string }) => {
       attractChildren: false,
     },
   });
+
+  // 监听收集信息开关的状态
+  const collectUserInfo = watch('collectUserInfo');
 
   const onSubmit = (data: FormData) => {
     if (currentStep === 2) {
@@ -188,136 +195,147 @@ export const Form = ({ productName }: { productName: string }) => {
           {currentStep === 2 && (
             <div className="space-y-6">
               <div className="space-y-4">
-                <h3 className="font-medium">收集用户的个人信息</h3>
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    {...register('collectUserInfo')}
+                    className="rounded text-blue-600"
+                  />
+                  <span className="ml-2 font-medium">收集用户的个人信息</span>
+                </label>
 
-                <div className="space-y-2">
-                  <p className="text-sm text-gray-600">收集哪些信息:</p>
-                  <div className="space-x-4">
-                    <label className="inline-flex items-center">
-                      <input
-                        type="checkbox"
-                        {...register('collectInfo.phone')}
-                        className="rounded text-blue-600"
-                      />
-                      <span className="ml-2">电话</span>
-                    </label>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="checkbox"
-                        {...register('collectInfo.email')}
-                        className="rounded text-blue-600"
-                      />
-                      <span className="ml-2">邮件</span>
-                    </label>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="checkbox"
-                        {...register('collectInfo.preferences')}
-                        className="rounded text-blue-600"
-                      />
-                      <span className="ml-2">偏好及兴趣</span>
-                    </label>
+                {collectUserInfo && (
+                  <div className="ml-6 space-y-6 border-l-2 border-gray-100 pl-4">
+                    <div className="space-y-2">
+                      <p className="text-sm text-gray-600">收集哪些信息:</p>
+                      <div className="space-x-4">
+                        <label className="inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            {...register('collectInfo.phone')}
+                            className="rounded text-blue-600"
+                          />
+                          <span className="ml-2">电话</span>
+                        </label>
+                        <label className="inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            {...register('collectInfo.email')}
+                            className="rounded text-blue-600"
+                          />
+                          <span className="ml-2">邮件</span>
+                        </label>
+                        <label className="inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            {...register('collectInfo.preferences')}
+                            className="rounded text-blue-600"
+                          />
+                          <span className="ml-2">偏好及兴趣</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-sm text-gray-600">如何收集:</p>
+                      <div className="space-x-4">
+                        <label className="inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            {...register('collectMethod.registration')}
+                            className="rounded text-blue-600"
+                          />
+                          <span className="ml-2">用户注册账户</span>
+                        </label>
+                        <label className="inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            {...register('collectMethod.thirdParty')}
+                            className="rounded text-blue-600"
+                          />
+                          <span className="ml-2">第三方来源</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-sm text-gray-600">适用范围:</p>
+                      <div className="space-x-4">
+                        <label className="inline-flex items-center">
+                          <input
+                            type="radio"
+                            value="selfUse"
+                            {...register('scope')}
+                            className="text-blue-600"
+                          />
+                          <span className="ml-2">仅自身使用</span>
+                        </label>
+                        <label className="inline-flex items-center">
+                          <input
+                            type="radio"
+                            value="share"
+                            {...register('scope')}
+                            className="text-blue-600"
+                          />
+                          <span className="ml-2">与合作方分享</span>
+                        </label>
+                        <label className="inline-flex items-center">
+                          <input
+                            type="radio"
+                            value="afterShare"
+                            {...register('scope')}
+                            className="text-blue-600"
+                          />
+                          <span className="ml-2">脱敏后分享</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-sm text-gray-600">如何存储和保护:</p>
+                      <div className="space-x-4">
+                        <label className="inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            {...register('protection.encryption')}
+                            className="rounded text-blue-600"
+                          />
+                          <span className="ml-2">加密关键信息</span>
+                        </label>
+                        <label className="inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            {...register('protection.keepAfterDelete')}
+                            className="rounded text-blue-600"
+                          />
+                          <span className="ml-2">隐私内容脱敏后保存</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-sm text-gray-600">数据删除相关:</p>
+                      <div className="space-x-4">
+                        <label className="inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            {...register('deletion.deleteWhenNotNeeded')}
+                            className="rounded text-blue-600"
+                          />
+                          <span className="ml-2">不需要时将销毁用户数据</span>
+                        </label>
+                        <label className="inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            {...register('deletion.allowUserDelete')}
+                            className="rounded text-blue-600"
+                          />
+                          <span className="ml-2">允许用户删除账户及信息</span>
+                        </label>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                <div className="space-y-2">
-                  <p className="text-sm text-gray-600">如何收集:</p>
-                  <div className="space-x-4">
-                    <label className="inline-flex items-center">
-                      <input
-                        type="checkbox"
-                        {...register('collectMethod.registration')}
-                        className="rounded text-blue-600"
-                      />
-                      <span className="ml-2">用户注册账户</span>
-                    </label>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="checkbox"
-                        {...register('collectMethod.thirdParty')}
-                        className="rounded text-blue-600"
-                      />
-                      <span className="ml-2">第三方来源</span>
-                    </label>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <p className="text-sm text-gray-600">适用范围:</p>
-                  <div className="space-x-4">
-                    <label className="inline-flex items-center">
-                      <input
-                        type="radio"
-                        value="selfUse"
-                        {...register('scope')}
-                        className="text-blue-600"
-                      />
-                      <span className="ml-2">仅自身使用</span>
-                    </label>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="radio"
-                        value="share"
-                        {...register('scope')}
-                        className="text-blue-600"
-                      />
-                      <span className="ml-2">与合作方分享</span>
-                    </label>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="radio"
-                        value="afterShare"
-                        {...register('scope')}
-                        className="text-blue-600"
-                      />
-                      <span className="ml-2">脱敏后分享</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <p className="text-sm text-gray-600">如何存储和保护:</p>
-                <div className="space-x-4">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      {...register('protection.encryption')}
-                      className="rounded text-blue-600"
-                    />
-                    <span className="ml-2">加密关键信息</span>
-                  </label>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      {...register('protection.keepAfterDelete')}
-                      className="rounded text-blue-600"
-                    />
-                    <span className="ml-2">隐私内容脱敏后保存</span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <p className="text-sm text-gray-600">数据删除相关:</p>
-                <div className="space-x-4">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      {...register('deletion.deleteWhenNotNeeded')}
-                      className="rounded text-blue-600"
-                    />
-                    <span className="ml-2">不需要时将销毁用户数据</span>
-                  </label>
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      {...register('deletion.allowUserDelete')}
-                      className="rounded text-blue-600"
-                    />
-                    <span className="ml-2">允许用户删除账户及信息</span>
-                  </label>
-                </div>
+                )}
               </div>
 
               <div className="space-y-4">

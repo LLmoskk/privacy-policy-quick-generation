@@ -14,6 +14,7 @@ export const Result = ({ onBack, formData }: ResultProps) => {
           companyName={formData.developerName}
           productName={formData.productName}
           contactInfo={formData.contactInfo}
+          formData={formData}
         />
       </div>
 

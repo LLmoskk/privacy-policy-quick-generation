@@ -65,26 +65,38 @@ export const TemplatePrivacy: React.FC<PrivacyTemplateProps> = ({
       <h2 className="mb-4 text-xl font-semibold">
         一、我们如何收集和使用您的个人信息
       </h2>
-      <div className="mb-6 indent-8">
-        个人信息是指以电子或者其他方式记录的能够单独或者与其他信息，
-        结合识别特定自然人身份或者反映特定自然人活动情况的各种信息。
-        我们根据《中华人民共和国网络安全法》和《信息安全技术个人信息安全规范》（GB/T
-        35273-2017）
-        以及其它相关法律法规的要求，并严格遵循正当、合法、必要的原则，
-        出于您使用我们提供的服务和/或产品等过程中而收集和使用您的个人信息，包括但不限于
-        {formData?.collectInfo.phone ? '电话号码' : ''}
-        {formData?.collectInfo.email ? '电子邮箱地址' : ''}
-        {formData?.collectInfo.preferences ? '偏好及兴趣' : ''}
-        等。
-      </div>
 
-      <div className="mb-6 indent-8">
-        为接受我们全面的产品服务，您应首先注册一个用户账号，我们将通过它记录相关的数据。
-        您所提供的所有信息均来自于
-        {renderCollectMethod()}
-        的数据。 您准备使用的账户名、密码、您本人的联系方式，
-        我们可能通过发短信或者邮件的方式来验证您的身份是否有效。
-      </div>
+      {formData?.collectUserInfo ? (
+        <div className="mb-6 indent-8">
+          个人信息是指以电子或者其他方式记录的能够单独或者与其他信息，
+          结合识别特定自然人身份或者反映特定自然人活动情况的各种信息。
+          我们根据《中华人民共和国网络安全法》和《信息安全技术个人信息安全规范》（GB/T
+          35273-2017）
+          以及其它相关法律法规的要求，并严格遵循正当、合法、必要的原则，
+          出于您使用我们提供的服务和/或产品等过程中而收集和使用您的个人信息，包括但不限于
+          {formData?.collectInfo.phone ? '电话号码' : ''}
+          {formData?.collectInfo.email ? '电子邮箱地址' : ''}
+          {formData?.collectInfo.preferences ? '偏好及兴趣' : ''}
+          等。
+        </div>
+      ) : (
+        <div className="mb-6 indent-8">
+          个人信息是指以电子或者其他方式记录的能够单独或者与其他信息，
+          结合识别特定自然人身份或者反映特定自然人活动情况的各种信息。
+          由于我们的产品和服务并不需要此类信息，因此很高兴的告知您，
+          我们不会收集关于您的任何个人信息。
+        </div>
+      )}
+
+      {formData?.collectUserInfo && (
+        <div className="mb-6 indent-8">
+          为接受我们全面的产品服务，您应首先注册一个用户账号，我们将通过它记录相关的数据。
+          您所提供的所有信息均来自于
+          {renderCollectMethod()}
+          的数据。 您准备使用的账户名、密码、您本人的联系方式，
+          我们可能通过发短信或者邮件的方式来验证您的身份是否有效。
+        </div>
+      )}
 
       <h2 className="mb-4 text-xl font-semibold">
         二、我们如何存储和保护您的个人信息
@@ -156,16 +168,28 @@ export const TemplatePrivacy: React.FC<PrivacyTemplateProps> = ({
         <div>8、法律法规规定的其他情形。</div>
       </div>
 
-      {/* TODO fix 到这里下面还没校验 */}
-
       {/* 根据表单数据动态生成其他章节... */}
       {formData?.useCookies && (
         <>
           <h2 className="mb-4 text-xl font-semibold">
-            四、Cookie 和其他追踪技术的使用
+            四、我们如何使用 Cookie 和其他追踪技术
           </h2>
           <div className="mb-6 indent-8">
-            我们使用 Cookie 和类似技术来提供、优化、分析和保护我们的服务。
+            为确保产品正常运转，我们会在您的计算机或移动设备上存储名为 Cookie
+            的小数据文件。 Cookie 通常包含标识符、产品名称以及一些号码和字符。
+            借助于
+            Cookie，我们能够存储您的偏好或商品等数据，并用以判断注册用户是否已经登录，
+            提升服务和产品质量及优化用户体验。
+          </div>
+          <div className="mb-6 indent-8">
+            我们出于不同的目的使用各种Cookie，包括：严格必要型Cookie、性能Cookie、营销Cookie和功能Cookie。
+            某些Cookie可能由外部第三方提供，以向我们的产品提供其它功能。
+            我们不会将 Cookie
+            用于本政策所述目的之外的任何用途。您可根据自己的偏好管理或删除
+            Cookie。 您可以清除计算机上或手机中保存的所有
+            Cookie，大部分网络浏览器都设有阻止或禁用 Cookie 的功能，
+            您可对浏览器进行配置。阻止或禁用 Cookie
+            功能后，可能影响您使用或不能充分使用我们的产品和服务。
           </div>
         </>
       )}
