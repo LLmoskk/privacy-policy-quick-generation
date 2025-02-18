@@ -14,4 +14,5 @@ export default defineConfig({
       '@': path.resolve('./src'),
     },
   },
+  base: '/privacy-policy-quick-generation/', //  替换为你的仓库名
 });
